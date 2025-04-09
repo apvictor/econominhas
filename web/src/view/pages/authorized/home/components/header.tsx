@@ -1,0 +1,90 @@
+import { Swiper, SwiperSlide } from "swiper/react"
+import { BR_MONTHS } from "@/config/constants/months"
+import { SliderNavigation } from "./slider-navigation"
+import { SliderOption } from "./slider-option"
+import { Icon } from "@/view/components/icon"
+import { Link } from "react-router-dom"
+import { useAuth } from "@/shared/contexts/auth-context"
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
+import { useHome } from "../contexts"
+import { formatCurrency } from "@/lib/format-currency"
+import { TransactionsFiltersModel } from "@/shared/models/transactions"
+
+export function Header() {
+  const { user, filters, setFilters } = useAuth()
+  const { transactionsSummary } = useHome()
+
+  function handleChangeFilters<TFilter extends keyof TransactionsFiltersModel>(
+    filter: TFilter
+  ) {
+    return (value: TransactionsFiltersModel[TFilter]) => {
+      if (value === filters[filter]) return
+      setFilters((prevState: any) => ({ ...prevState, [filter]: value }))
+    }
+  }
+
+  return (
+    <header className="bg-gradient-to-b from-teal-950 to-zinc-950 p-5 flex flex-col gap-5">
+      <div className="flex items-center justify-between">
+        <Link to={"/profile"} className="flex items-center gap-2">
+          <Avatar className="h-10 w-10">
+            <AvatarImage className="rounded-full" src={user?.picture} />
+            <AvatarFallback className="h-10 w-10 rounded-full bg-teal-900 flex items-center justify-center font-bold uppercase">
+              {user?.name[0]}
+              {user?.name[1]}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="text-zinc-400 text-sm">Olá,</p>
+            <p className="font-bold">{user?.name}</p>
+          </div>
+        </Link>
+        <div className="flex gap-3">
+          <button className="p-2 rounded-lg text-yellow-300 bg-teal-500">
+            <Icon name="Crown" className="stroke-2" />
+          </button>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <div className="flex-1 text-center text-zinc-400 text-xs">
+          <p>Total no mês</p>
+          <strong>{formatCurrency(transactionsSummary?.balance)}</strong>
+        </div>
+        <div className="text-center flex-1 font-bold">
+          <p className="text-sm">Saldo</p>
+          <p className="text-2xl text-nowrap">
+            {formatCurrency(transactionsSummary?.total)}
+          </p>
+        </div>
+        <div className="text-center text-zinc-400 text-xs flex-1">
+          <p>Total previsto</p>
+          <strong>
+            {formatCurrency(transactionsSummary?.balanceForecast)}
+          </strong>
+        </div>
+      </div>
+
+      <div className="relative">
+        <Swiper
+          slidesPerView={3}
+          centeredSlides
+          initialSlide={filters.month}
+          onSlideChange={(swiper) => {
+            handleChangeFilters("month")(swiper.realIndex)
+          }}
+        >
+          <SliderNavigation />
+
+          {BR_MONTHS.map((month, index) => (
+            <SwiperSlide key={month}>
+              {({ isActive }) => (
+                <SliderOption isActive={isActive} month={month} index={index} />
+              )}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </header>
+  )
+}
