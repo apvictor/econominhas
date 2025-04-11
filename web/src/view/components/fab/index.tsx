@@ -29,7 +29,7 @@ export function Fab() {
   ]
 
   return (
-    <footer className="fixed bottom-5 w-full flex items-center justify-center">
+    <footer className="fixed bottom-5 left-1/2 -translate-x-1/2 z-50">
       <div className="flex items-center justify-center gap-4 p-1 bg-transparent w-fit backdrop-blur rounded-full shadow-[0px_0px_10px_1px_rgba(255,255,255,0.1)]">
         {routes.map((route) => (
           <NavLink key={route.url} to={route.url}>

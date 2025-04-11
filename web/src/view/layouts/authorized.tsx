@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
-import { Fab } from "../components/fab";
+import { Outlet } from "react-router-dom"
+import { Fab } from "../components/fab"
 
 export function AuthorizedLayout() {
   return (
@@ -7,5 +7,5 @@ export function AuthorizedLayout() {
       <Outlet />
       <Fab />
     </main>
-  );
+  )
 }
