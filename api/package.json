@@ -7,7 +7,7 @@
     "start": "node dist/server.js",
     "dev": "npx prisma generate && nodemon src/server.ts",
     "build": "rimraf ./dist && tsc",
-    "postinstall": "npx prisma db push && npx prisma db seed",
+    "postinstall": "npx prisma generate && npx prisma db seed",
     "swagger": "ts-node src/config/swagger/index.ts",
     "lint": "eslint --fix --ext .js,.mjs,.ts,.json .",
     "prepare": "husky"
