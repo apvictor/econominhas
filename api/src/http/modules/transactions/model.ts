@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 
-import { RecurrenceEnum } from "@prisma/client";
 
 export interface TransactionsModel {
   id: number;
@@ -10,8 +9,6 @@ export interface TransactionsModel {
   value: number;
   date: string;
   paid: boolean;
-  recurrence: RecurrenceEnum
-  totalInstallments?: number
 }
 
 export interface TransactionsFormModel extends Omit<TransactionsModel, "id"> { }
