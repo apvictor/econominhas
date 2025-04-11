@@ -9,7 +9,7 @@ export function Content() {
         <Transaction.ItemSkeleton />
       ) : transactionsData?.length === 0 ? (
         <div className="flex flex-col h-full items-center justify-center">
-          <img width={140} src="empty.svg" alt="Nenhuma conta encontrada" />
+          <img width={100} src="empty.svg" alt="Nenhuma conta encontrada" />
           <p className="text-nowrap text-xs">Nenhuma conta encontrada</p>
         </div>
       ) : (

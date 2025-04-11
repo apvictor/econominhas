@@ -1,11 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react"
 import { BR_MONTHS } from "@/config/constants/months"
-import { SliderNavigation } from "../../home/components/slider-navigation"
-import { SliderOption } from "../../home/components/slider-option"
 import { TransactionsFiltersModel } from "@/shared/models/transactions"
 import { useAuth } from "@/shared/contexts/auth-context"
 import { useTransactions } from "../contexts"
 import { formatCurrency } from "@/lib/format-currency"
+import { SliderNavigation } from "../../home/components/slider-navigation"
+import { SliderOption } from "../../home/components/slider-option"
 
 export function Header() {
   const { filters, setFilters } = useAuth()

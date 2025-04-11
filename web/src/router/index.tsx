@@ -5,9 +5,6 @@ import { AuthGuard } from "./auth-guard"
 import { AuthorizedLayout } from "@/view/layouts/authorized"
 
 import { Login } from "@/view/pages/unauthorized/login"
-import { Home } from "@/view/pages/authorized/home"
-import { Transactions } from "@/view/pages/authorized/transactions"
-import { Profile } from "@/view/pages/authorized/profile"
 import { Categories } from "@/view/pages/authorized/categories"
 import { Accounts } from "@/view/pages/authorized/accounts"
 import { MyProfile } from "@/view/pages/authorized/my-profile"
@@ -15,6 +12,9 @@ import { Budgets } from "@/view/pages/authorized/budgets"
 import { TransactionsForm } from "@/view/pages/authorized/transactions-form"
 import { TransactionsPending } from "@/view/pages/authorized/transactions-pending"
 import { Reports } from "@/view/pages/authorized/reports"
+import { Home } from "@/view/pages/authorized/(tabs)/home"
+import { Profile } from "@/view/pages/authorized/(tabs)/profile"
+import { Transactions } from "@/view/pages/authorized/(tabs)/transactions"
 
 export function Router() {
   const location = useLocation()

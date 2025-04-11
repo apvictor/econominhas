@@ -31,7 +31,7 @@ export function Latest() {
         ) : transactions.length === 0 ? (
           <div className="flex flex-col h-full items-center justify-center">
             <img
-              width={140}
+              width={100}
               src="empty.svg"
               alt="Nenhuma transação encontrada"
             />

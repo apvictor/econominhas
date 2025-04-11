@@ -90,7 +90,7 @@ export function AccountSelect({ onSelect, columnCount = 2, value }: Props) {
             rowCount={rowCount}
             columnWidth={itemWidth}
             rowHeight={itemHeight}
-            height={300}
+            height={80}
             width={itemWidth * columnCount}
           >
             {Cell}

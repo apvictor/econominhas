@@ -15,9 +15,9 @@ export function Profile() {
       <div className="flex flex-col gap-10 justify-between flex-1 h-full">
         <MyRegistrations />
 
-        <Settings />
-
         {user && user.feedbacks.length <= 0 && <Feedback />}
+
+        <Settings />
 
         <button
           onClick={signOut}

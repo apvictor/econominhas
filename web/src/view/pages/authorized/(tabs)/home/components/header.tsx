@@ -40,7 +40,7 @@ export function Header() {
           </div>
         </Link>
         <div className="flex gap-3">
-          <button className="p-2 rounded-lg text-yellow-300 bg-teal-500">
+          <button className="p-2 rounded-lg text-black bg-teal-500">
             <Icon name="Crown" className="stroke-2" />
           </button>
         </div>

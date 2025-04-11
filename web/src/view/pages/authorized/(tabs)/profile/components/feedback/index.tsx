@@ -22,8 +22,8 @@ export function Feedback() {
             />
           </div>
         </div>
-        <div className="text-center">
-          <h4 className="font-bold text-lg text-nowrap">
+        <div>
+          <h4 className="font-bold text-lg text-nowrap text-center">
             Você está gostando do{" "}
             <span className="text-teal-500">econominhas</span>?
           </h4>
