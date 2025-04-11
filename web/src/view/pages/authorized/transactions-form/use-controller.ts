@@ -14,8 +14,6 @@ const validationSchema = object().shape({
   paid: string().required("Campo obrigatório"),
   accountId: string().required("Campo obrigatório"),
   categoryId: string().required("Campo obrigatório"),
-  recurrence: string().required("Campo obrigatório"),
-  totalInstallments: string(),
 })
 
 const initialValues = {
@@ -25,8 +23,6 @@ const initialValues = {
   paid: 0,
   accountId: "",
   categoryId: "",
-  totalInstallments: 1,
-  recurrence: "NONRECURRING"
 }
 
 export function useController() {

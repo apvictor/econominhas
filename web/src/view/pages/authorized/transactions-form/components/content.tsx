@@ -44,7 +44,11 @@ export function Content() {
 
   return (
     <div className="flex-1 flex flex-col justify-between">
-      <form className="space-y-5" onSubmit={formik.handleSubmit}>
+      <form
+        id="transactions-form"
+        className="space-y-5"
+        onSubmit={formik.handleSubmit}
+      >
         <ToggleGroup
           type="single"
           value={type}
@@ -141,6 +145,7 @@ export function Content() {
       </form>
 
       <Button
+        form="transactions-form"
         type="submit"
         className="w-full"
         disabled={!formik.isValid || formik.isSubmitting}

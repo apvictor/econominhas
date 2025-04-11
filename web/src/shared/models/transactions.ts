@@ -13,9 +13,6 @@ export interface TransactionsModel {
   value: number;
   date?: string;
   paid: boolean;
-  recurrence: "NONRECURRING" | "INSTALLMENT" | "FIXEDMONTHLY" | string
-  currentInstallment?: number
-  totalInstallments?: number
 }
 export interface TransactionsDateModel {
   transactions: TransactionsModel[]
