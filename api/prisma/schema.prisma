@@ -3,14 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  directUrl = env("DIRECT_URL")
-  url       = env("DATABASE_URL")
-}
-
-enum UserRole {
-  ADMIN
-  USER
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Users {
@@ -21,7 +15,6 @@ model Users {
   phone     String?  @unique
   picture   String?
   password  String?
-  role      UserRole @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -32,18 +25,12 @@ model Users {
   @@map("users")
 }
 
-enum CategoryType {
-  EXPENSE
-  INCOME
-  ACCOUNT
-}
-
 model Categories {
-  id     Int          @id @default(autoincrement())
+  id     Int    @id @default(autoincrement())
   userId Int?
   name   String
   icon   String
-  type   CategoryType
+  type   String // EXPENSE, INCOME, ACCOUNT
 
   user Users? @relation(fields: [userId], references: [id])
 
@@ -70,42 +57,19 @@ model Accounts {
   @@map("accounts")
 }
 
-enum RecurrenceEnum {
-  NONRECURRING
-  INSTALLMENT
-  FIXEDMONTHLY
-}
-
 model Transactions {
-  id                Int            @id @default(autoincrement())
-  accountId         Int
-  categoryId        Int
-  title             String
-  value             Decimal        @db.Decimal(9, 2)
-  date              DateTime       @default(now())
-  paid              Boolean        @default(false)
-  recurrence        RecurrenceEnum @default(NONRECURRING)
-  totalInstallments Int?
+  id         Int      @id @default(autoincrement())
+  accountId  Int
+  categoryId Int
+  title      String
+  value      Float
+  date       DateTime @default(now())
+  paid       Boolean  @default(false)
 
   account  Accounts   @relation(fields: [accountId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   category Categories @relation(fields: [categoryId], references: [id])
 
-  installments Installments[]
-
   @@map("transactions")
-}
-
-model Installments {
-  id                 Int      @id @default(autoincrement())
-  transactionId      Int
-  currentInstallment Int
-  value              Decimal  @db.Decimal(9, 2)
-  date               DateTime
-  paid               Boolean  @default(false)
-
-  transaction Transactions @relation(fields: [transactionId], references: [id])
-
-  @@map("installments")
 }
 
 model Feedbacks {
@@ -125,7 +89,7 @@ model Budgets {
   accountId  Int
   categoryId Int
   title      String
-  value      Decimal  @db.Decimal(9, 2)
+  value      Float
   date       DateTime @default(now())
 
   account  Accounts   @relation(fields: [accountId], references: [id])

@@ -15,7 +15,6 @@ export interface UsersAuthRequest extends Request {
 }
 export interface UsersModel {
   id: number;
-  role: string;
   name: string;
   email: string;
   password?: string;

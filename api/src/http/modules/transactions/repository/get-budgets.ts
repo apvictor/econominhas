@@ -9,13 +9,11 @@ async function getTransactions(filters: {
 }) {
   return Prisma.transactions.findMany({
     where: {
-      recurrence: 'FIXEDMONTHLY',
       account: { userId: filters.userId },
     },
     include: {
       category: true,
       account: true,
-      installments: true,
     },
     orderBy: { date: 'desc' },
   });

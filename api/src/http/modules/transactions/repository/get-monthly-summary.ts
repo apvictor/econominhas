@@ -16,11 +16,6 @@ async function getTransactions(filters: {
     include: {
       category: true,
       account: true,
-      installments: {
-        where: {
-          date: { gte: filters.startDate, lte: filters.endDate },
-        },
-      },
     },
     orderBy: { date: 'desc' },
     ...(filters.take ? { take: filters.take } : {}),
