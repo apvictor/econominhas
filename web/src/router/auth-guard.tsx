@@ -11,11 +11,5 @@ export function AuthGuard({ isPrivate }: Props) {
 
   if (signedIn && !isPrivate) return <Navigate to="/home" replace />
 
-  return (
-    <div className="flex justify-center">
-      <div className="max-w-md">
-        <Outlet />
-      </div>
-    </div>
-  )
+  return <Outlet />
 }
