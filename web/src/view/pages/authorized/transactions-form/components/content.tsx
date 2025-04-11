@@ -36,8 +36,6 @@ export function Content() {
         paid: Number(transaction?.paid) || 0,
         title: transaction?.title || "",
         value: transaction?.value || 0,
-        recurrence: transaction?.recurrence || "NONRECURRING",
-        totalInstallments: transaction.totalInstallments ?? 1,
       })
     }
   }, [transaction])

@@ -39,18 +39,7 @@ export function Latest() {
           </div>
         ) : (
           transactions.map((transaction) => (
-            <Transaction.Item
-              key={transaction.id}
-              transaction={
-                transaction.installments && transaction.installments?.length > 0
-                  ? {
-                      ...transaction,
-                      title: `${transaction.title} ${transaction.installments[0].currentInstallment}/${transaction.totalInstallments}`,
-                      ...transaction.installments[0],
-                    }
-                  : transaction
-              }
-            />
+            <Transaction.Item key={transaction.id} transaction={transaction} />
           ))
         )}
       </Transaction.List>

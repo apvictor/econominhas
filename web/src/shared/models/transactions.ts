@@ -1,6 +1,5 @@
 import { AccountsModel } from "./accounts";
 import { CategoriesModel } from "./categories";
-import { InstallmentsModel } from "./installments";
 
 export interface TransactionsModel {
   id: number;
@@ -8,7 +7,6 @@ export interface TransactionsModel {
   account: AccountsModel
   categoryId: number;
   category: CategoriesModel;
-  installments?: InstallmentsModel[];
   title: string;
   value: number;
   date?: string;
