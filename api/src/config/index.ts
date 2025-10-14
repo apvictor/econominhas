@@ -1,8 +1,6 @@
 import { Prisma } from '../shared/services/prisma';
 
 export const JWT_SECRET = process.env.JWT_SECRET as string;
-export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID as string;
-export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET as string;
 export const SERVER_PORT = process.env.SERVER_PORT || '3000';
 export const SERVER_SCHEME = process.env.SERVER_SCHEME || 'http';
 export const SERVER_DOMAIN = process.env.SERVER_DOMAIN || 'localhost';

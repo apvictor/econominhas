@@ -57,18 +57,18 @@ export function AddCategoryModal() {
             </ToggleGroupItem>
           </ToggleGroup>
 
-          <div className="flex justify-start w-full">
+          <div className="flex justify-start w-full gap-4">
             <div className="flex flex-1 flex-col gap-2">
               <Label className="font-bold">Nome da categoria</Label>
               <Input
                 name="name"
-                placeholder="Digite o nome da categoria"
+                placeholder="Ex. Educação"
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
                 onChange={formik.handleChange}
               />
             </div>
-            <div className="flex flex-col gap-2 w-fit">
+            <div className="flex flex-col gap-2">
               <Label className="font-bold">Escolha um ícone</Label>
               <Select.Icon
                 onSelect={(icon) => formik.setFieldValue("icon", icon)}

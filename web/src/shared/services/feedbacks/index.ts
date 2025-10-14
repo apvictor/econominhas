@@ -7,4 +7,9 @@ async function add(params: FeedbacksFormModel) {
   return data;
 }
 
-export const FeedbacksService = { add }
+async function getByUser() {
+  const { data } = await api.get<FeedbacksFormResponseModel | null>("/feedbacks/me");
+  return data;
+}
+
+export const FeedbacksService = { add, getByUser }

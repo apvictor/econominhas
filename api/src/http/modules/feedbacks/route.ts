@@ -8,4 +8,5 @@ import { FeedbacksValidation } from './validation';
 
 export const FeedbacksRoute = Router();
 
+FeedbacksRoute.get('/me', UsersAuth, FeedbacksController.me);
 FeedbacksRoute.post('/', UsersAuth, Validate(FeedbacksValidation.create), FeedbacksController.create);

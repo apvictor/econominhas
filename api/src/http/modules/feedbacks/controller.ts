@@ -19,6 +19,15 @@ const create = MapErrors(
   },
 );
 
+const me = MapErrors(async (request: UsersAuthRequest, response: Response) => {
+  const user = request.user;
+
+  const feedback = await FeedbacksRepository.getByUserId(user.id);
+
+  return response.json(feedback);
+});
+
 export const FeedbacksController = {
   create,
+  me,
 };

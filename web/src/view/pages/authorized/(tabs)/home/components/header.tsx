@@ -1,5 +1,4 @@
 import { Swiper, SwiperSlide } from "swiper/react"
-import { BR_MONTHS } from "@/config/constants/months"
 import { SliderNavigation } from "./slider-navigation"
 import { SliderOption } from "./slider-option"
 import { Icon } from "@/view/components/icon"
@@ -8,20 +7,13 @@ import { useAuth } from "@/shared/contexts/auth-context"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { useHome } from "../contexts"
 import { formatCurrency } from "@/lib/format-currency"
-import { TransactionsFiltersModel } from "@/shared/models/transactions"
+import { getDynamicMonths } from "@/lib/get-dynamic-months"
 
 export function Header() {
   const { user, filters, setFilters } = useAuth()
   const { transactionsSummary } = useHome()
 
-  function handleChangeFilters<TFilter extends keyof TransactionsFiltersModel>(
-    filter: TFilter
-  ) {
-    return (value: TransactionsFiltersModel[TFilter]) => {
-      if (value === filters[filter]) return
-      setFilters((prevState: any) => ({ ...prevState, [filter]: value }))
-    }
-  }
+  const months = getDynamicMonths(12)
 
   return (
     <header className="bg-gradient-to-b from-teal-950 to-zinc-950 p-5 flex flex-col gap-5">
@@ -69,17 +61,28 @@ export function Header() {
         <Swiper
           slidesPerView={3}
           centeredSlides
-          initialSlide={filters.month}
+          initialSlide={months.findIndex(
+            (m) => m.month === filters.month && m.year === filters.year
+          )}
           onSlideChange={(swiper) => {
-            handleChangeFilters("month")(swiper.realIndex)
+            const selected = months[swiper.realIndex]
+            setFilters((prevState: any) => ({
+              ...prevState,
+              month: selected.month,
+              year: selected.year,
+            }))
           }}
         >
           <SliderNavigation />
 
-          {BR_MONTHS.map((month, index) => (
-            <SwiperSlide key={month}>
+          {months.map((item, index) => (
+            <SwiperSlide key={`${item.month}-${item.year}`}>
               {({ isActive }) => (
-                <SliderOption isActive={isActive} month={month} index={index} />
+                <SliderOption
+                  isActive={isActive}
+                  month={`${item.label}`}
+                  index={index}
+                />
               )}
             </SwiperSlide>
           ))}

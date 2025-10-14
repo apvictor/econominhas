@@ -7,6 +7,7 @@ import { useController } from "./use-controller"
 import { Button } from "@/components/ui/button"
 import { Loader } from "@/view/components/loader"
 import { useEffect } from "react"
+import { PatternFormat } from "react-number-format"
 
 export function MyProfile() {
   const { user } = useAuth()
@@ -36,59 +37,70 @@ export function MyProfile() {
         </Avatar>
       </div>
 
-      <form className="space-y-5" onSubmit={formik.handleSubmit}>
-        <div>
-          <Label>Nome</Label>
-          <Input
-            name="name"
-            placeholder="Nome"
-            value={formik.values.name}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-        </div>
+      <div className="h-full flex-1 flex flex-col justify-between">
+        <form
+          id="form-my-profile"
+          className="space-y-5"
+          onSubmit={formik.handleSubmit}
+        >
+          <div>
+            <Label>Nome</Label>
+            <Input
+              name="name"
+              placeholder="Nome"
+              value={formik.values.name}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
 
-        <div>
-          <Label>E-mail</Label>
-          <Input
-            name="email"
-            placeholder="contato@econominhas.com"
-            value={formik.values.email}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-        </div>
+          <div>
+            <Label>E-mail</Label>
+            <Input
+              name="email"
+              placeholder="contato@econominhas.com"
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+            />
+          </div>
 
-        <div>
-          <Label>CPF</Label>
-          <Input
-            name="cpf"
-            placeholder="000.000.000-00"
-            value={formik.values.cpf}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-        </div>
+          <div>
+            <Label>CPF</Label>
+            <PatternFormat
+              name="cpf"
+              onBlur={formik.handleBlur}
+              value={formik.values.cpf}
+              onChange={formik.handleChange}
+              format="###.###.###-##"
+              placeholder="000.000.000-00"
+              customInput={Input}
+            />
+          </div>
 
-        <div>
-          <Label>Telefone</Label>
-          <Input
-            name="phone"
-            placeholder="(00) 00000-0000"
-            value={formik.values.phone}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-        </div>
+          <div>
+            <Label>Telefone</Label>
+            <PatternFormat
+              name="phone"
+              onBlur={formik.handleBlur}
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+              format="(##) #####-####"
+              placeholder="(00) 00000-0000"
+              customInput={Input}
+            />
+          </div>
+        </form>
 
         <Button
           type="submit"
-          className="w-full"
+          form="form-my-profile"
+          className="disabled:bg-white/50"
           disabled={!formik.isValid || formik.isSubmitting}
         >
-          {formik.isSubmitting ? <Loader /> : "Salvar"}
+          {formik.isSubmitting && <Loader />} Salvar
         </Button>
-      </form>
+      </div>
     </main>
   )
 }

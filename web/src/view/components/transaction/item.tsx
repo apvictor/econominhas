@@ -32,7 +32,7 @@ export function Item({ transaction, showDate = true }: Props) {
       className="bg-zinc-900 p-3 rounded-lg flex items-center justify-between w-full"
     >
       <div className="flex items-center gap-3">
-        <div className="relative bg-zinc-950 rounded-sm size-10 flex items-center justify-center">
+        <div className="relative bg-zinc-950 rounded-lg size-10 flex items-center justify-center">
           <Icon name={category.icon} className={amountColor} />
           {paid && (
             <div className="absolute -top-1 -right-1 size-3 bg-teal-400 rounded-full flex items-center justify-center">

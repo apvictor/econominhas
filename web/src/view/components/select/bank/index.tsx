@@ -52,8 +52,8 @@ export function BankSelect({ onSelect, value, placeholder }: Props) {
   }, [value])
 
   const columnCount = 4
-  const itemHeight = 70
-  const itemWidth = 70
+  const itemHeight = 80
+  const itemWidth = 80
   const rowCount = Math.ceil(banks.length / columnCount)
 
   const handleSelect = (bank: Bank) => {
@@ -69,7 +69,11 @@ export function BankSelect({ onSelect, value, placeholder }: Props) {
     if (!bank) return null
 
     return (
-      <button style={style} onClick={() => handleSelect(bank)}>
+      <button
+        style={style}
+        className="rounded"
+        onClick={() => handleSelect(bank)}
+      >
         <div className="flex flex-col items-center size-12">
           <img
             src={bank.img}
@@ -84,24 +88,24 @@ export function BankSelect({ onSelect, value, placeholder }: Props) {
 
   return (
     <Select open={isOpen} onOpenChange={setIsOpen}>
-      <SelectTrigger className="flex items-center gap-2 border-none w-fit min-w-20">
+      <SelectTrigger className="flex items-center gap-2 border">
         {selected ? (
-          <>
+          <div className="flex items-center gap-2">
             <img
               src={selected.img}
               alt={selected.name}
-              className="size-8 object-contain rounded-full"
+              className="size-6 object-contain rounded-full"
             />
             {selected.name}
-          </>
+          </div>
         ) : (
           <>
-            <Icon name="CirclePlus" className="size-8 text-zinc-500" />
+            <Icon name="CirclePlus" className="size-6 text-zinc-500" />
             {placeholder}
           </>
         )}
       </SelectTrigger>
-      <SelectContent className="max-w-fit overflow-y-auto p-2">
+      <SelectContent className="max-w-fit overflow-y-auto p-4">
         <Grid
           columnCount={columnCount}
           rowCount={rowCount}

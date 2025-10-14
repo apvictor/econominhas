@@ -45,7 +45,7 @@ export function IconSelect({ onSelect, value, name }: Props) {
 
   return (
     <Select open={isOpen} onOpenChange={setIsOpen} name={name}>
-      <SelectTrigger className="flex items-center gap-2 border-none w-fit">
+      <SelectTrigger className="flex items-center gap-2 border">
         {selected ? (
           <Icon name={selected} className="size-6" />
         ) : (

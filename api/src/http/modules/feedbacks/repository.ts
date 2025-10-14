@@ -7,4 +7,10 @@ async function create(data: FeedbacksFormModel) {
   return { data: feedbacks };
 }
 
-export const FeedbacksRepository = { create };
+async function getByUserId(userId: number) {
+  const feedback = await Prisma.feedbacks.findUnique({ where: { userId } });
+
+  return { data: feedback };
+}
+
+export const FeedbacksRepository = { create, getByUserId };

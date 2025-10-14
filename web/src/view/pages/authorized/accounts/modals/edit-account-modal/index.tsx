@@ -54,25 +54,25 @@ export function EditAccountModal() {
           className="p-4 space-y-5"
           onSubmit={formik.handleSubmit}
         >
-          <div className="flex justify-start w-full">
+          <div className="flex justify-start w-full gap-4">
             <div className="flex flex-1 flex-col gap-2">
-              <Label className="font-bold">Nome da conta</Label>
-              <Input
-                name="name"
-                placeholder="Digite o nome da conta"
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div className="flex flex-col gap-2 w-fit">
-              <Label className="font-bold">Escolha um ícone</Label>
+              <Label className="font-bold">Escolha um banco</Label>
               <Select.Bank
                 value={formik.values.bank}
                 onSelect={(bank) => {
                   formik.setFieldValue("bank", bank)
                   formik.setFieldValue("name", bank)
                 }}
+              />
+            </div>
+            <div className="flex flex-1 flex-col gap-2">
+              <Label className="font-bold">Nome da conta</Label>
+              <Input
+                name="name"
+                placeholder="Ex. Meu NU"
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
+                onChange={formik.handleChange}
               />
             </div>
           </div>
