@@ -20,7 +20,7 @@ export function Pending() {
             <div className="flex items-center gap-2 text-xs">
               <Icon name="TriangleAlert" className="text-yellow-500" />
               <p>
-                Você possui{" "}
+                Verificar{" "}
                 <strong>
                   {transactionsSummary?.totalPendingTransactions} transações
                   pendentes
