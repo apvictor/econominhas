@@ -13,15 +13,9 @@ const validationSchema = object().shape({
   type: string().required("Campo obrigatório"),
 })
 
-const initialValues = {
-  name: "",
-  icon: "Circle" as keyof typeof icons,
-  type: "EXPENSE",
-}
-
 export function useController() {
   const queryClient = useQueryClient();
-  const { setOpenEditModal, category } = useCategories();
+  const { setOpenEditModal, category, filters } = useCategories();
 
   const mutation = useMutation({
     mutationFn: async (values: CategoriesFormModel) => {
@@ -41,7 +35,11 @@ export function useController() {
     onSubmit: (values, { resetForm }) => {
       mutation.mutateAsync(values).then(() => resetForm());
     },
-    initialValues,
+    initialValues: {
+      name: "",
+      icon: "" as keyof typeof icons,
+      type: filters.type,
+    },
     validationSchema,
   });
 

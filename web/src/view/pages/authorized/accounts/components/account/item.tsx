@@ -21,7 +21,7 @@ export function Item(account: AccountsModel) {
           <img
             src={bankProps?.img}
             alt={account.bank}
-            className="size-10 object-contain rounded-full"
+            className="size-8 object-contain rounded-full"
           />
         )}
         <div className="text-start">

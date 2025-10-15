@@ -13,14 +13,8 @@ const validationSchema = object().shape({
   type: string().required("Campo obrigatório"),
 })
 
-const initialValues = {
-  name: "",
-  icon: "CirclePlus" as keyof typeof icons,
-  type: "EXPENSE",
-}
-
 export function useController() {
-  const { setOpenAddModal } = useCategories();
+  const { setOpenAddModal, filters } = useCategories();
 
   const queryClient = useQueryClient();
 
@@ -42,8 +36,13 @@ export function useController() {
     onSubmit: (values, { resetForm }) => {
       mutation.mutateAsync(values).then(() => resetForm());
     },
-    initialValues,
-    validationSchema,
+    initialValues: {
+      name: "",
+      icon: "" as keyof typeof icons,
+      type: filters.type,
+    },
+    enableReinitialize: true,
+    validationSchema
   });
 
   return { formik }

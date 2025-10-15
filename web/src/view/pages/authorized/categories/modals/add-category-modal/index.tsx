@@ -66,11 +66,13 @@ export function AddCategoryModal() {
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
                 onChange={formik.handleChange}
+                error={formik.touched.name && formik.errors.name}
               />
             </div>
             <div className="flex flex-col gap-2">
               <Label className="font-bold">Escolha um ícone</Label>
               <Select.Icon
+                error={formik.touched.icon && formik.errors.icon}
                 onSelect={(icon) => formik.setFieldValue("icon", icon)}
               />
             </div>
@@ -83,7 +85,7 @@ export function AddCategoryModal() {
             form="AddCategoryModal"
             disabled={!formik.isValid || formik.isSubmitting}
           >
-            {formik.isSubmitting ? <Loader /> : "Salvar"}
+            {formik.isSubmitting && <Loader />} Salvar
           </Button>
           <DrawerClose asChild>
             <Button className="!bg-transparent !text-white" type="button">

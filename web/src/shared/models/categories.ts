@@ -5,7 +5,7 @@ export interface CategoriesModel {
   name: string;
   userId: number;
   icon: keyof typeof icons;
-  type: "INCOME" | "EXPENSE" | "ACCOUNT" | string;
+  type?: "INCOME" | "EXPENSE" | "ACCOUNT" | string;
 }
 
 export interface CategoriesFiltersModel {

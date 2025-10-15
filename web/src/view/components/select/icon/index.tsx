@@ -3,13 +3,15 @@ import { Select, SelectTrigger, SelectContent } from "@/components/ui/select"
 import { Icon } from "@/view/components/icon"
 import { FixedSizeGrid as Grid } from "react-window"
 import { useEffect, useState } from "react"
+import { cn } from "@/lib/utils"
 
 interface Props {
   name?: string
   value?: keyof typeof icons
   onSelect: (icon: string) => void
+  error?: string | boolean
 }
-export function IconSelect({ onSelect, value, name }: Props) {
+export function IconSelect({ onSelect, value, name, error }: Props) {
   const [selected, setSelected] = useState<keyof typeof icons | null>(null)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -45,7 +47,13 @@ export function IconSelect({ onSelect, value, name }: Props) {
 
   return (
     <Select open={isOpen} onOpenChange={setIsOpen} name={name}>
-      <SelectTrigger className="flex items-center gap-2 border">
+      <SelectTrigger
+        className={cn(
+          "flex items-center gap-2 border",
+          error &&
+            "dark:border-red-500 dark:focus-visible:ring-red-500 dark:focus-visible:border-red-500"
+        )}
+      >
         {selected ? (
           <Icon name={selected} className="size-6" />
         ) : (
