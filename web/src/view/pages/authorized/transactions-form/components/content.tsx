@@ -19,11 +19,15 @@ import { Loader } from "@/view/components/loader"
 import { useGlobal } from "@/shared/contexts/global-context"
 
 export function Content() {
+  const [isInstallment, setIsInstallment] = useState(false)
+
   const { formik } = useController()
 
   const { transaction } = useGlobal()
 
-  const [type, setType] = useState<"INCOME" | "EXPENSE" | string>("EXPENSE")
+  const [type, setType] = useState<"INCOME" | "EXPENSE" | string | undefined>(
+    "EXPENSE"
+  )
 
   useEffect(() => {
     if (transaction) {
@@ -50,7 +54,7 @@ export function Content() {
         <ToggleGroup
           type="single"
           value={type}
-          className="flex items-center w-full gap-4"
+          className="flex items-center w-full gap-5"
           onValueChange={(value) => setType(value)}
         >
           <ToggleGroupItem
@@ -117,29 +121,101 @@ export function Content() {
           />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <Label className="font-bold">Escolha uma data</Label>
-          <DatePicker
-            value={new Date(formik.values.date)}
-            onChange={(date) => formik.setFieldValue("date", date)}
-          />
+        <div className="flex items-end justify-between gap-5">
+          <div className="flex-1">
+            <Label className="font-bold">Escolha uma data</Label>
+            <div>
+              <DatePicker
+                value={new Date(formik.values.date)}
+                onChange={(date) => formik.setFieldValue("date", date)}
+              />
+            </div>
+          </div>
+
+          <div>
+            <Label className="font-bold">Já foi pago?</Label>
+            <SelectBase
+              value={String(formik.values.paid)}
+              onValueChange={(value) => formik.setFieldValue("paid", value)}
+            >
+              <SelectTrigger id="paid">
+                <SelectValue placeholder="Selecione" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="0">Não</SelectItem>
+                <SelectItem value="1">Sim</SelectItem>
+              </SelectContent>
+            </SelectBase>
+          </div>
         </div>
 
         <div>
-          <Label className="font-bold">Já foi pago?</Label>
+          <Label className="font-bold">Deseja parcelar?</Label>
           <SelectBase
-            value={String(formik.values.paid)}
-            onValueChange={(value) => formik.setFieldValue("paid", value)}
+            value={isInstallment ? "yes" : "no"}
+            onValueChange={(value) => {
+              const shouldInstallment = value === "yes"
+              setIsInstallment(shouldInstallment)
+              formik.setFieldValue("isInstallment", shouldInstallment)
+            }}
           >
-            <SelectTrigger id="paid">
+            <SelectTrigger id="isInstallment">
               <SelectValue placeholder="Selecione" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="0">Não</SelectItem>
-              <SelectItem value="1">Sim</SelectItem>
+              <SelectItem value="no">Não</SelectItem>
+              <SelectItem value="yes">Sim</SelectItem>
             </SelectContent>
           </SelectBase>
         </div>
+
+        {isInstallment && (
+          <div className="space-y-5 pb-10">
+            <div className="flex items-center justify-between gap-5">
+              <div className="flex-1">
+                <Label className="font-bold">Parcela inicial</Label>
+                <InputBase
+                  type="number"
+                  name="installmentNum"
+                  min={1}
+                  placeholder="Ex: 1"
+                  onChange={formik.handleChange}
+                  // value={formik.values.installmentNum || ""}
+                />
+              </div>
+
+              <div className="flex-1">
+                <Label className="font-bold">Quantidade</Label>
+                <InputBase
+                  type="number"
+                  name="installmentQty"
+                  min={1}
+                  placeholder="Ex: 12"
+                  onChange={formik.handleChange}
+                  // value={formik.values.installmentQty || ""}
+                />
+              </div>
+
+              <div className="flex-1">
+                <Label className="font-bold">Periodicidade</Label>
+                <SelectBase
+                  // value={formik.values.installmentFreq || ""}
+                  onValueChange={(value) =>
+                    formik.setFieldValue("installmentFreq", value)
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="MONTHLY">Mensal</SelectItem>
+                    <SelectItem value="YEARLY">Anual</SelectItem>
+                  </SelectContent>
+                </SelectBase>
+              </div>
+            </div>
+          </div>
+        )}
       </form>
 
       <Button

@@ -8,7 +8,7 @@ export function Header() {
   const { openAddModal, setOpenAddModal } = useAccounts()
 
   return (
-    <header className="flex items-center justify-between mb-5">
+    <header className="flex items-center justify-between">
       <Button variant={"ghost"} onClick={() => navigate(-1)}>
         <Icon name="ChevronLeft" />
       </Button>

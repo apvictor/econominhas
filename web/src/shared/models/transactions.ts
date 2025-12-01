@@ -25,7 +25,13 @@ export interface TransactionsFiltersModel {
   categoryId?: number
 }
 
-export interface TransactionsFormModel extends Omit<TransactionsModel, "id" | "account" | "category" | "currentInstallment"> { }
+export interface TransactionsFormModel extends Omit<TransactionsModel, "id" | "account" | "category" | "currentInstallment"> {
+  isInstallment?: boolean;
+  installmentNum?: number;
+  installmentQty?: number;
+  installmentFreq?: "MONTHLY" | "YEARLY";
+
+}
 
 
 export interface TransactionsFormResponseModel {

@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { useHome } from "../contexts"
 import { formatCurrency } from "@/lib/format-currency"
 import { getDynamicMonths } from "@/lib/get-dynamic-months"
+import { cn } from "@/lib/utils"
 
 export function Header() {
   const { user, filters, setFilters } = useAuth()
@@ -45,7 +46,14 @@ export function Header() {
         </div>
         <div className="text-center flex-1 font-bold">
           <p className="text-sm">Saldo</p>
-          <p className="text-2xl text-nowrap">
+          <p
+            className={cn(
+              "text-2xl text-nowrap",
+              transactionsSummary &&
+                transactionsSummary?.total < 0 &&
+                "text-red-500"
+            )}
+          >
             {formatCurrency(transactionsSummary?.total)}
           </p>
         </div>
